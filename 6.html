@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eleições Municipais</title>
+    <style>
+        #candidato, #votoNulo {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        #candidato img {
+            max-width: 100px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Eleições Municipais São Paulo</h1>
+    <button id="btnVotar">Votar</button>
+    <h2>Tabata Amaral = 40<br>Guilherme Boulos = 50<br>Pablo Marçal = 28</h2>
+    <div id="candidato">
+        <p id="nomeCandidato"></p>
+        <img id="fotoCandidato" alt="Foto do Candidato">
+        <p>Confirmar?</p>
+        <button id="btnConfirmar">Confirmar</button>
+        <button id="btnCancelar">Cancelar</button>
+    </div>
+
+    <div id="votoNulo">
+        <p>Voto Nulo!</p>
+    </div>
+
+    <script>
+        const btnVotar = document.getElementById('btnVotar');
+        const candidatoDiv = document.getElementById('candidato');
+        const votoNuloDiv = document.getElementById('votoNulo');
+        const nomeCandidato = document.getElementById('nomeCandidato');
+        const fotoCandidato = document.getElementById('fotoCandidato');
+        const btnConfirmar = document.getElementById('btnConfirmar');
+        const btnCancelar = document.getElementById('btnCancelar');
+        
+        const candidatos = {
+            28: { nome: "Pablo Marçal", foto: "https://via.placeholder.com/100?text=28", votos: 0 },
+            50: { nome: "Guilherme Boulos", foto: "https://via.placeholder.com/100?text=50", votos: 0 },
+            40: { nome: "Tabata Amaral", foto: "https://via.placeholder.com/100?text=40", votos: 0 }
+        };
+
+        btnVotar.addEventListener('click', function() {
+            const numeroCandidato = parseInt(prompt("Digite o número do candidato:"));
+
+            if (candidatos[numeroCandidato]) {
+                nomeCandidato.innerText = candidatos[numeroCandidato].nome;
+                fotoCandidato.src = candidatos[numeroCandidato].foto;
+                candidatoDiv.style.display = 'block';
+                votoNuloDiv.style.display = 'none';
+
+                btnConfirmar.onclick = function() {
+                    candidatos[numeroCandidato].votos++;
+                    console.log(`${candidatos[numeroCandidato].nome} recebeu um voto. Total de votos: ${candidatos[numeroCandidato].votos}`);
+                    candidatoDiv.style.display = 'none';
+                };
+
+                btnCancelar.onclick = function() {
+                    candidatoDiv.style.display = 'none';
+                    alert("Voto cancelado.");
+                };
+            } else {
+                votoNuloDiv.style.display = 'block';
+                candidatoDiv.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
